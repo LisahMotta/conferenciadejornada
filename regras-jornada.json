@@ -43,13 +43,13 @@
   "_comentarioNomenclatura": "IMPORTANTE: 'cargaHorariaSemanal' nas tabelas abaixo é a designação legal/nominal da jornada (o número que aparece nos atos oficiais e no Decreto 70.483/2026), NÃO é a soma literal de aulas+ATPC+ATPL em horas de relógio. Não tente 'corrigir' esse número pela soma das aulas — ele é assim mesmo nas fontes oficiais.",
 
   "jornadasNomeadas": {
-    "_observacao": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. Uma jornada aqui aponta pra uma linha das tabelas de composição abaixo através do campo 'cargaHorariaSemanal'.",
-    "Reduzida":  { "lei": "LC 836/1997",  "cargaHorariaSemanal": 12, "pisoMensal": 1539.19 },
-    "Inicial":   { "lei": "LC 836/1997",  "cargaHorariaSemanal": 24, "pisoMensal": 3078.38 },
-    "Básica":    { "lei": "LC 836/1997",  "cargaHorariaSemanal": 30, "pisoMensal": 3847.97 },
-    "Integral":  { "lei": "LC 836/1997",  "cargaHorariaSemanal": 40, "pisoMensal": 5130.63 },
-    "Completa":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 25, "pisoMensal": 3206.64 },
-    "Ampliada":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 40, "pisoMensal": 5130.63 }
+    "_observacao": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. 'cargaHorariaSemanal' é a designação legal nominal. 'aulasComAlunosBase' é o nº de aulas com alunos dessa jornada — EU (Claude) derivei esse número cruzando as tabelas tabelaJornadasAnexoI e tabelaAnexoII_SE72_2019 pela 'cargaHorariaSemanal' de cada jornada nomeada; bateu nas duas fontes pra Reduzida/Inicial/Básica/Integral. Vale conferir se parecer estranho.",
+    "Reduzida":  { "lei": "LC 836/1997",   "cargaHorariaSemanal": 12, "aulasComAlunosBase": 9,  "pisoMensal": 1539.19 },
+    "Inicial":   { "lei": "LC 836/1997",   "cargaHorariaSemanal": 24, "aulasComAlunosBase": 19, "pisoMensal": 3078.38 },
+    "Básica":    { "lei": "LC 836/1997",   "cargaHorariaSemanal": 30, "aulasComAlunosBase": 24, "pisoMensal": 3847.97 },
+    "Integral":  { "lei": "LC 836/1997",   "cargaHorariaSemanal": 40, "aulasComAlunosBase": 32, "pisoMensal": 5130.63 },
+    "Completa":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 25, "aulasComAlunosBase": 20, "pisoMensal": 3206.64 },
+    "Ampliada":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 40, "aulasComAlunosBase": 32, "pisoMensal": 5130.63 }
   },
 
   "_comentarioVigencia": "CONFIRMADO com a usuária.",
@@ -62,8 +62,8 @@
 
   "comoConsultarAsTabelas": {
     "chaveDeBusca": "aulasComAlunos",
-    "explicacao": "CONFIRMADO com a usuária: a busca na tabela (tabelaJornadasAnexoI ou tabelaAnexoII_SE72_2019, conforme a data) é feita pela quantidade de AULAS COM ALUNOS efetivamente atribuídas ao docente — não pela 'cargaHorariaSemanal' nominal da jornada. O ATPC e o ATPL/APD seguem essa quantidade de aulas, lidos direto da linha correspondente.",
-    "porQueImporta": "É essa regra que resolve o cálculo de carga suplementar: se a jornada Inicial tem 19 aulas com alunos e o docente recebe 20 aulas atribuídas, a 1ª aula extra pode fazer a linha de ATPC/ATPL mudar também (comparar a linha de 19 aulas com a linha de 20 aulas na tabela) — não é só uma conta isolada de 1 aula × valor × 5, é preciso reconferir a linha inteira."
+    "explicacao": "CONFIRMADO com a usuária: a busca na tabela (tabelaJornadasAnexoI ou tabelaAnexoII_SE72_2019, conforme a data) é feita pela quantidade de AULAS COM ALUNOS da jornada BASE do docente (a jornada nomeada em que ele está enquadrado) — não pela 'cargaHorariaSemanal' nominal diretamente. Essa linha dá o ATPC, o ATPL/APD e a designação nominal (usada na fórmula de 'formulaValorMensalJornadaBase').",
+    "porQueImporta": "É essa regra que resolve, por exemplo, qual designação nominal usar pra jornada Inicial (19 aulas com alunos → designação 24). Carga suplementar é tratada à parte, sem alterar essa linha — ver 'cargaSuplementar.afetaAtpcAtpl'."
   },
 
   "_comentarioTabelaJornadas": "Tabela transcrita literalmente do Anexo I da Resolução SEDUC 105/2024.",
@@ -172,25 +172,34 @@
     "observacao": "Resolução 105/2024, Art. 6º: 2 ATPC semanais adicionais, cumpridas na unidade escolar, somadas à carga horária total do PEB I."
   },
 
-  "valorDaAula": {
+  "valorDaHoraAula": {
     "modoDeUso": "input_manual_por_caso",
-    "observacao": "Decisão da usuária: o app não trava um valor fixo — cada caso exige o valor real da aula daquele professor, digitado a partir do holerite/tabela de vencimento vigente na data do caso (pode ser maior que o mínimo legal, dependendo da Faixa/Nível dele).",
+    "observacao": "CONFIRMADO pela usuária: é o valor de UMA 'hora-aula' (um período/aula, não hora-relógio de 60min). Cada caso exige o valor real daquele professor específico, digitado a partir do holerite/tabela de vencimento vigente na data do caso — pode ser maior que o mínimo legal, dependendo da Faixa/Nível dele.",
     "valorMinimoLegal": {
-      "formula": "pisoMensal da Jornada Integral (LC836) ou Ampliada (LC1374), ambas 40h semanais, dividido por 200",
+      "formula": "pisoMensal da Jornada Integral (LC836) ou Ampliada (LC1374), ambas 40h semanais nominais, dividido por 200 (= 40 × multiplicadorMensal 5)",
       "pisoMensalUsado": 5130.63,
       "divisor": 200,
       "valorCalculado": 25.65,
       "fonte": "Decreto nº 70.483/2026, Artigo 1º, §1º ('valor mínimo da aula será de 1/200 sobre o valor do piso fixado para a Jornada Integral e Jornada Ampliada')",
+      "confirmadoPelaUsuaria": "Sim — R$25,65 é o valor de exemplo que ela mesma confirmou para a hora-aula.",
       "comoUsar": "Sugestão de valor pré-preenchido no formulário (a usuária pode sobrescrever), NUNCA usado silenciosamente sem confirmação — é um MÍNIMO legal, o valor real do professor específico pode ser maior."
     }
+  },
+
+  "formulaValorMensalJornadaBase": {
+    "formula": "valorDaHoraAula × cargaHorariaSemanal(designação nominal da linha da tabela, encontrada pela quantidade de aulas com alunos atribuídas) × multiplicadorMensal(5)",
+    "multiplicadorMensal": 5,
+    "exemploValidado": "Jornada Integral/Ampliada: 25,65 × 40 × 5 = 5.130,00 (bate com o piso de R$5.130,63 dentro da margem de arredondamento de centavos do valor da hora-aula, que tem mais casas decimais internamente — ver 'arredondamento' abaixo).",
+    "observacao": "Fórmula reconstruída e confirmada com a usuária cruzando a conta do Decreto 70.483/2026. Internamente o app deve guardar valorDaHoraAula com casas decimais completas (não truncar em 25,65 antes de multiplicar), arredondando só na exibição final."
   },
 
   "cargaSuplementar": {
     "definicao": "Aulas com alunos atribuídas ACIMA da quantidade prevista pela jornada base do docente.",
     "exemploConfirmadoPelaUsuaria": "Jornada Inicial = 19 aulas com alunos/semana. Se atribuídas 20 aulas, 1 aula fica como carga suplementar.",
-    "formulaMensal": "aulasExcedentesPorSemana × valorDaAula × multiplicadorMensal",
+    "formulaMensal": "aulasExcedentesPorSemana × valorDaHoraAula × multiplicadorMensal",
     "multiplicadorMensal": 5,
     "multiplicadorMensal_observacao": "Confirmado pela usuária como fixo (não varia com o nº real de semanas do mês). Consistente com a coluna 'cargaHorariaMensal' = 'cargaHorariaSemanal' × 5 da tabelaAnexoII_SE72_2019.",
+    "afetaAtpcAtpl": "NÃO — no exemplo que a usuária deu, só a aula excedente entra na conta (aulasExcedentes × valorDaHoraAula × 5); a composição ATPC/ATPL da jornada base permanece a mesma. Se isso estiver errado, ela pode corrigir aqui.",
     "proporcionalidadeQuandoParcial": "Mesma regra de 'regrasDeCalculoProporcional' abaixo: calcula o valor mensal cheio da carga suplementar e rateia pelos dias corridos em que ela vigorou no mês."
   },
 
