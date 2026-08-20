@@ -52,12 +52,18 @@
     "Ampliada":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 40, "pisoMensal": 5130.63 }
   },
 
-  "_comentarioVigencia": "HIPÓTESE A CONFIRMAR COM A USUÁRIA antes de travar o cálculo — ver pergunta feita na conversa.",
+  "_comentarioVigencia": "CONFIRMADO com a usuária.",
   "vigenciaComposicaoJornada": {
     "apartirDe": "2025-01-29",
-    "regraApartirDessaData": "Usar 'tabelaJornadasAnexoI' (Resolução SEDUC 105/2024) para TODAS as jornadas nomeadas (Reduzida/Inicial/Básica/Integral/Completa/Ampliada), buscando a linha cujo 'cargaHorariaSemanal' bate com a hora nominal da jornada em 'jornadasNomeadas'.",
-    "regraAntesDessaData": "Usar 'tabelaAnexoII_SE72_2019' (composição antiga, ATPC/ATPL menores).",
+    "regraApartirDessaData": "Usar 'tabelaJornadasAnexoI' (Resolução SEDUC 105/2024) para TODAS as jornadas nomeadas (Reduzida/Inicial/Básica/Integral/Completa/Ampliada), inclusive as da carreira antiga (LC 836/1997), buscando a linha pela quantidade de aulas com alunos efetivamente atribuída (ver 'comoConsultarAsTabelas' abaixo).",
+    "regraAntesDessaData": "Usar 'tabelaAnexoII_SE72_2019' (composição antiga, ATPC/ATPL menores) para casos com data de referência anterior a 29/01/2025.",
     "faltaAulaEFaltaMedica": "'tabelaAnexoII_SE72_2019' permanece a fonte válida para os limites de Falta-Aula e Falta Médica, independentemente da data do caso, pois a Resolução 105/2024 não trata desse assunto."
+  },
+
+  "comoConsultarAsTabelas": {
+    "chaveDeBusca": "aulasComAlunos",
+    "explicacao": "CONFIRMADO com a usuária: a busca na tabela (tabelaJornadasAnexoI ou tabelaAnexoII_SE72_2019, conforme a data) é feita pela quantidade de AULAS COM ALUNOS efetivamente atribuídas ao docente — não pela 'cargaHorariaSemanal' nominal da jornada. O ATPC e o ATPL/APD seguem essa quantidade de aulas, lidos direto da linha correspondente.",
+    "porQueImporta": "É essa regra que resolve o cálculo de carga suplementar: se a jornada Inicial tem 19 aulas com alunos e o docente recebe 20 aulas atribuídas, a 1ª aula extra pode fazer a linha de ATPC/ATPL mudar também (comparar a linha de 19 aulas com a linha de 20 aulas na tabela) — não é só uma conta isolada de 1 aula × valor × 5, é preciso reconferir a linha inteira."
   },
 
   "_comentarioTabelaJornadas": "Tabela transcrita literalmente do Anexo I da Resolução SEDUC 105/2024.",
@@ -192,7 +198,7 @@
     "baseProporcionalidade": "dias_corridos_reais",
     "baseProporcionalidade_explicacao": "Usa o número real de dias do mês de referência (28, 29, 30 ou 31). Valor diário = valor mensal da rubrica na jornada ÷ nº real de dias do mês.",
     "diaDaMudancaContaComo": "jornada_nova",
-    "diaDaMudanca_explicacao": "ASSUMIDO por padrão (a confirmar com a usuária). Se a data de início da jornada nova é 15/03, o dia 15 já entra na contagem da jornada nova (dias 1–14 = jornada antiga, dias 15–31 = jornada nova).",
+    "diaDaMudanca_explicacao": "CONFIRMADO com a usuária. Se a data de início da jornada nova é 15/03, o dia 15 já entra na contagem da jornada nova (dias 1–14 = jornada antiga, dias 15–31 = jornada nova).",
     "arredondamento": {
       "casasDecimais": 2,
       "observacao": "Arredondamento só na exibição final; os cálculos intermediários usam valor cheio para não acumular erro de centavos."
