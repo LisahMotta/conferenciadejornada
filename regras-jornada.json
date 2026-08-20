@@ -1,0 +1,215 @@
+{
+  "_leiaMe": "Este arquivo concentra TODAS as regras de negócio usadas pelo app. Ele foi escrito para ser lido e atualizado por uma pessoa não-programadora: se a SEDUC publicar uma nova resolução, edite os números aqui — não é preciso mexer no código JS.",
+
+  "fontes": [
+    {
+      "id": "resolucao_seduc_105_2024",
+      "documento": "Resolução SEDUC nº 105, de 29 de novembro de 2024",
+      "publicacao": "Diário Oficial do Estado de São Paulo, Caderno Executivo, Seção Atos Normativos, edição de 29/11/2024",
+      "vigenciaEfeitos": "A partir de 29/01/2025 (Artigo 8º da Resolução)",
+      "trata": "Composição da jornada docente em aulas com alunos + ATPC + ATPL/APD (Anexo I e Anexo II).",
+      "revoga": [
+        "Resolução SEDUC nº 133, de 29/11/2021",
+        "Resolução SEDUC nº 55, de 29/6/2022",
+        "Resolução SEDUC nº 58, de 8/7/2022"
+      ]
+    },
+    {
+      "id": "anexo_ii_se72_2019",
+      "documento": "Anexo II da Resolução SE 72/2019, alterada pela Resolução SE 76/2020 (SE 02/2020)",
+      "trata": "Composição antiga da jornada (aulas + ATPC + ATPL), aplicável a Fundamental II/Médio diurno, MAIS as regras de Limite de Falta-Aula e Falta Médica (parcial/total) — assunto que a Resolução 105/2024 não cobre.",
+      "baseLegal": ["Decreto nº 39.931/95", "L.C. nº 1.041/2008"]
+    },
+    {
+      "id": "decreto_70483_2026",
+      "documento": "Decreto nº 70.483, de 25 de março de 2026",
+      "trata": "Nomeia oficialmente as jornadas (Reduzida, Inicial, Básica, Integral — LC 836/1997; Completa, Ampliada — LC 1.374/2022), fixa o valor de piso mensal de cada uma e define a fórmula do valor mínimo da aula (Artigo 1º, §1º).",
+      "vigencia": "Efeitos retroativos a 01/01/2026 (Artigo 5º)."
+    }
+  ],
+
+  "duracaoDaAula": {
+    "diurnoMinutos": 50,
+    "noturnoMinutos": 45,
+    "observacao": "Resolução 105/2024, Artigo 2º, I e §4º do Artigo 3º: no período noturno cada aula dura 45 min em vez de 50."
+  },
+
+  "tiposDeAula": {
+    "comInteracaoComEstudantes": "Aula com Interação com Estudantes — aula regular dada em sala",
+    "ATPC": "Aula de Trabalho Pedagógico Coletivo — reunião semanal coletiva",
+    "ATPL_APD": "Aula de Trabalho Pedagógico em Local de Livre Escolha / Atividade Pedagógica Diversificada"
+  },
+
+  "_comentarioNomenclatura": "IMPORTANTE: 'cargaHorariaSemanal' nas tabelas abaixo é a designação legal/nominal da jornada (o número que aparece nos atos oficiais e no Decreto 70.483/2026), NÃO é a soma literal de aulas+ATPC+ATPL em horas de relógio. Não tente 'corrigir' esse número pela soma das aulas — ele é assim mesmo nas fontes oficiais.",
+
+  "jornadasNomeadas": {
+    "_observacao": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. Uma jornada aqui aponta pra uma linha das tabelas de composição abaixo através do campo 'cargaHorariaSemanal'.",
+    "Reduzida":  { "lei": "LC 836/1997",  "cargaHorariaSemanal": 12, "pisoMensal": 1539.19 },
+    "Inicial":   { "lei": "LC 836/1997",  "cargaHorariaSemanal": 24, "pisoMensal": 3078.38 },
+    "Básica":    { "lei": "LC 836/1997",  "cargaHorariaSemanal": 30, "pisoMensal": 3847.97 },
+    "Integral":  { "lei": "LC 836/1997",  "cargaHorariaSemanal": 40, "pisoMensal": 5130.63 },
+    "Completa":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 25, "pisoMensal": 3206.64 },
+    "Ampliada":  { "lei": "LC 1.374/2022", "cargaHorariaSemanal": 40, "pisoMensal": 5130.63 }
+  },
+
+  "_comentarioVigencia": "HIPÓTESE A CONFIRMAR COM A USUÁRIA antes de travar o cálculo — ver pergunta feita na conversa.",
+  "vigenciaComposicaoJornada": {
+    "apartirDe": "2025-01-29",
+    "regraApartirDessaData": "Usar 'tabelaJornadasAnexoI' (Resolução SEDUC 105/2024) para TODAS as jornadas nomeadas (Reduzida/Inicial/Básica/Integral/Completa/Ampliada), buscando a linha cujo 'cargaHorariaSemanal' bate com a hora nominal da jornada em 'jornadasNomeadas'.",
+    "regraAntesDessaData": "Usar 'tabelaAnexoII_SE72_2019' (composição antiga, ATPC/ATPL menores).",
+    "faltaAulaEFaltaMedica": "'tabelaAnexoII_SE72_2019' permanece a fonte válida para os limites de Falta-Aula e Falta Médica, independentemente da data do caso, pois a Resolução 105/2024 não trata desse assunto."
+  },
+
+  "_comentarioTabelaJornadas": "Tabela transcrita literalmente do Anexo I da Resolução SEDUC 105/2024.",
+  "tabelaJornadasAnexoI": [
+    { "cargaHorariaSemanal": 2,  "aulasComAlunos": 1,  "atpc": 1, "atplApd": 0 },
+    { "cargaHorariaSemanal": 3,  "aulasComAlunos": 2,  "atpc": 1, "atplApd": 0 },
+    { "cargaHorariaSemanal": 4,  "aulasComAlunos": 3,  "atpc": 1, "atplApd": 0 },
+    { "cargaHorariaSemanal": 5,  "aulasComAlunos": 4,  "atpc": 1, "atplApd": 1 },
+    { "cargaHorariaSemanal": 7,  "aulasComAlunos": 5,  "atpc": 2, "atplApd": 1 },
+    { "cargaHorariaSemanal": 8,  "aulasComAlunos": 6,  "atpc": 2, "atplApd": 1 },
+    { "cargaHorariaSemanal": 9,  "aulasComAlunos": 7,  "atpc": 2, "atplApd": 1 },
+    { "cargaHorariaSemanal": 10, "aulasComAlunos": 8,  "atpc": 2, "atplApd": 2 },
+    { "cargaHorariaSemanal": 12, "aulasComAlunos": 9,  "atpc": 2, "atplApd": 3 },
+    { "cargaHorariaSemanal": 13, "aulasComAlunos": 10, "atpc": 2, "atplApd": 3 },
+    { "cargaHorariaSemanal": 14, "aulasComAlunos": 11, "atpc": 2, "atplApd": 3 },
+    { "cargaHorariaSemanal": 15, "aulasComAlunos": 12, "atpc": 2, "atplApd": 4 },
+    { "cargaHorariaSemanal": 17, "aulasComAlunos": 13, "atpc": 2, "atplApd": 5 },
+    { "cargaHorariaSemanal": 18, "aulasComAlunos": 14, "atpc": 2, "atplApd": 5 },
+    { "cargaHorariaSemanal": 19, "aulasComAlunos": 15, "atpc": 2, "atplApd": 5 },
+    { "cargaHorariaSemanal": 20, "aulasComAlunos": 16, "atpc": 3, "atplApd": 5 },
+    { "cargaHorariaSemanal": 22, "aulasComAlunos": 17, "atpc": 3, "atplApd": 6 },
+    { "cargaHorariaSemanal": 23, "aulasComAlunos": 18, "atpc": 3, "atplApd": 6 },
+    { "cargaHorariaSemanal": 24, "aulasComAlunos": 19, "atpc": 3, "atplApd": 6 },
+    { "cargaHorariaSemanal": 25, "aulasComAlunos": 20, "atpc": 3, "atplApd": 7 },
+    { "cargaHorariaSemanal": 27, "aulasComAlunos": 21, "atpc": 3, "atplApd": 8 },
+    { "cargaHorariaSemanal": 28, "aulasComAlunos": 22, "atpc": 3, "atplApd": 8 },
+    { "cargaHorariaSemanal": 29, "aulasComAlunos": 23, "atpc": 3, "atplApd": 8 },
+    { "cargaHorariaSemanal": 30, "aulasComAlunos": 24, "atpc": 3, "atplApd": 9 },
+    { "cargaHorariaSemanal": 32, "aulasComAlunos": 25, "atpc": 4, "atplApd": 9 },
+    { "cargaHorariaSemanal": 33, "aulasComAlunos": 26, "atpc": 4, "atplApd": 9 },
+    { "cargaHorariaSemanal": 34, "aulasComAlunos": 27, "atpc": 4, "atplApd": 9 },
+    { "cargaHorariaSemanal": 35, "aulasComAlunos": 28, "atpc": 4, "atplApd": 10 },
+    { "cargaHorariaSemanal": 37, "aulasComAlunos": 29, "atpc": 4, "atplApd": 11 },
+    { "cargaHorariaSemanal": 38, "aulasComAlunos": 30, "atpc": 4, "atplApd": 11 },
+    { "cargaHorariaSemanal": 39, "aulasComAlunos": 31, "atpc": 4, "atplApd": 11 },
+    { "cargaHorariaSemanal": 40, "aulasComAlunos": 32, "atpc": 5, "atplApd": 11 },
+    { "cargaHorariaSemanal": 41, "aulasComAlunos": 33, "atpc": 5, "atplApd": 11 },
+    { "cargaHorariaSemanal": 42, "aulasComAlunos": 34, "atpc": 5, "atplApd": 11 },
+    { "cargaHorariaSemanal": 43, "aulasComAlunos": 35, "atpc": 5, "atplApd": 11 },
+    { "cargaHorariaSemanal": 44, "aulasComAlunos": 36, "atpc": 5, "atplApd": 11 }
+  ],
+
+  "_comentarioAnexoIIAcumulo": "Anexo II da Resolução SEDUC 105/2024 (não confundir com o Anexo II da SE72/2019, abaixo) — usado para o SEGUNDO vínculo de docentes em regime de acumulação regidos pela LC 836/1997 (Art. 3º, §3º): 33h semanais no primeiro vínculo (tabela do Anexo I) e 32h semanais no segundo, com esta composição específica.",
+  "tabelaJornadaAnexoII_Res105_segundoVinculoAcumulo": {
+    "cargaHorariaSemanal": 32,
+    "aulasComAlunos": 26,
+    "atpc": 4,
+    "atplApd": 8
+  },
+
+  "_comentarioAnexoIISE72": "Tabela completa do Anexo II da Resolução SE 72/2019 (alt. SE 76/2020). Colunas: aulasComAlunos, atpc, atplApd, cargaHorariaSemanal (designação nominal), cargaHorariaMensal (= cargaHorariaSemanal × 5), limiteFaltaAula (nº de faltas-aula permitidas), faltaMedicaParcial e faltaMedicaTotal (se o docente tem direito). 'nomeJornada' preenchido só nas linhas que o documento original nomeia.",
+  "tabelaAnexoII_SE72_2019": [
+    { "aulasComAlunos": 1,  "atpc": 1, "atplApd": 0,  "cargaHorariaSemanal": 2,  "cargaHorariaMensal": 10,  "limiteFaltaAula": 1, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 2,  "atpc": 1, "atplApd": 1,  "cargaHorariaSemanal": 3,  "cargaHorariaMensal": 15,  "limiteFaltaAula": 1, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 3,  "atpc": 1, "atplApd": 1,  "cargaHorariaSemanal": 4,  "cargaHorariaMensal": 20,  "limiteFaltaAula": 1, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 4,  "atpc": 1, "atplApd": 1,  "cargaHorariaSemanal": 5,  "cargaHorariaMensal": 25,  "limiteFaltaAula": 1, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 5,  "atpc": 2, "atplApd": 2,  "cargaHorariaSemanal": 7,  "cargaHorariaMensal": 35,  "limiteFaltaAula": 1, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 6,  "atpc": 2, "atplApd": 2,  "cargaHorariaSemanal": 8,  "cargaHorariaMensal": 40,  "limiteFaltaAula": 2, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 7,  "atpc": 2, "atplApd": 3,  "cargaHorariaSemanal": 9,  "cargaHorariaMensal": 45,  "limiteFaltaAula": 2, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 8,  "atpc": 2, "atplApd": 3,  "cargaHorariaSemanal": 10, "cargaHorariaMensal": 50,  "limiteFaltaAula": 2, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 9,  "atpc": 3, "atplApd": 4,  "cargaHorariaSemanal": 12, "cargaHorariaMensal": 60,  "limiteFaltaAula": 2, "faltaMedicaParcial": false, "faltaMedicaTotal": true, "nomeJornada": "Reduzida" },
+    { "aulasComAlunos": 10, "atpc": 3, "atplApd": 4,  "cargaHorariaSemanal": 13, "cargaHorariaMensal": 65,  "limiteFaltaAula": 3, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 11, "atpc": 3, "atplApd": 4,  "cargaHorariaSemanal": 14, "cargaHorariaMensal": 70,  "limiteFaltaAula": 3, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 12, "atpc": 3, "atplApd": 5,  "cargaHorariaSemanal": 15, "cargaHorariaMensal": 75,  "limiteFaltaAula": 3, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 13, "atpc": 3, "atplApd": 6,  "cargaHorariaSemanal": 17, "cargaHorariaMensal": 85,  "limiteFaltaAula": 3, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 14, "atpc": 3, "atplApd": 7,  "cargaHorariaSemanal": 18, "cargaHorariaMensal": 90,  "limiteFaltaAula": 3, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 15, "atpc": 3, "atplApd": 7,  "cargaHorariaSemanal": 19, "cargaHorariaMensal": 95,  "limiteFaltaAula": 4, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 16, "atpc": 3, "atplApd": 7,  "cargaHorariaSemanal": 20, "cargaHorariaMensal": 100, "limiteFaltaAula": 4, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 17, "atpc": 3, "atplApd": 9,  "cargaHorariaSemanal": 22, "cargaHorariaMensal": 110, "limiteFaltaAula": 4, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 18, "atpc": 3, "atplApd": 9,  "cargaHorariaSemanal": 23, "cargaHorariaMensal": 115, "limiteFaltaAula": 4, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 19, "atpc": 4, "atplApd": 9,  "cargaHorariaSemanal": 24, "cargaHorariaMensal": 120, "limiteFaltaAula": 5, "faltaMedicaParcial": false, "faltaMedicaTotal": true, "nomeJornada": "Inicial" },
+    { "aulasComAlunos": 20, "atpc": 5, "atplApd": 8,  "cargaHorariaSemanal": 25, "cargaHorariaMensal": 125, "limiteFaltaAula": 5, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 21, "atpc": 5, "atplApd": 10, "cargaHorariaSemanal": 27, "cargaHorariaMensal": 135, "limiteFaltaAula": 5, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 22, "atpc": 5, "atplApd": 10, "cargaHorariaSemanal": 28, "cargaHorariaMensal": 140, "limiteFaltaAula": 5, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 23, "atpc": 5, "atplApd": 10, "cargaHorariaSemanal": 29, "cargaHorariaMensal": 145, "limiteFaltaAula": 6, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 24, "atpc": 5, "atplApd": 11, "cargaHorariaSemanal": 30, "cargaHorariaMensal": 150, "limiteFaltaAula": 6, "faltaMedicaParcial": false, "faltaMedicaTotal": true, "nomeJornada": "Básica" },
+    { "aulasComAlunos": 25, "atpc": 5, "atplApd": 12, "cargaHorariaSemanal": 32, "cargaHorariaMensal": 160, "limiteFaltaAula": 6, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 26, "atpc": 5, "atplApd": 12, "cargaHorariaSemanal": 33, "cargaHorariaMensal": 165, "limiteFaltaAula": 6, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 27, "atpc": 6, "atplApd": 12, "cargaHorariaSemanal": 34, "cargaHorariaMensal": 170, "limiteFaltaAula": 7, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 28, "atpc": 6, "atplApd": 12, "cargaHorariaSemanal": 35, "cargaHorariaMensal": 175, "limiteFaltaAula": 7, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 29, "atpc": 7, "atplApd": 13, "cargaHorariaSemanal": 37, "cargaHorariaMensal": 185, "limiteFaltaAula": 7, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 30, "atpc": 7, "atplApd": 13, "cargaHorariaSemanal": 38, "cargaHorariaMensal": 190, "limiteFaltaAula": 7, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 31, "atpc": 7, "atplApd": 14, "cargaHorariaSemanal": 39, "cargaHorariaMensal": 195, "limiteFaltaAula": 7, "faltaMedicaParcial": false, "faltaMedicaTotal": true },
+    { "aulasComAlunos": 32, "atpc": 7, "atplApd": 14, "cargaHorariaSemanal": 40, "cargaHorariaMensal": 200, "limiteFaltaAula": 7, "faltaMedicaParcial": true,  "faltaMedicaTotal": true, "nomeJornada": "Integral" }
+  ],
+
+  "limitesAnexoIISE72_observacoesGerais": {
+    "limiteAcumuloEstadoEstado": "65 h/a semanais, incluindo ATPC e ATPL, não ultrapassando 52 h/a em sala de aula (alunos).",
+    "limiteDiarioSemAcumulo": "11 h/a ao dia, incluindo ATPC.",
+    "limiteDiarioComAcumuloEstadoEstado": "17 h/a ao dia, incluindo ATPC, não ultrapassando 11 h/a em nenhum dos cargos.",
+    "faltaMedicaParcial_condicao": "Só faz jus o docente com 32 aulas atribuídas, ou que em caso de acúmulo (estado x estado) a soma dos dois vínculos totalize 32 h/a."
+  },
+
+  "limitesAcumulacaoRes105": {
+    "aulasDiariasAteJornada36semanais": 9,
+    "aulasDiariasAcumulacaoRegraGeral": 12,
+    "aulasDiariasAcumulacaoLC1374semRestricao": 16,
+    "limiteSemanalSeUmVinculoForLC836": 65,
+    "observacao": "Resolução 105/2024, Art. 4º §§1º-4º. Guardado para consulta/validação futura — não usado no cálculo de proporcionalidade financeira do MVP."
+  },
+
+  "atpcAdicionalAnosIniciais": {
+    "aplicavelA": "Professores regentes de classe dos Anos Iniciais do Ensino Fundamental (PEB I)",
+    "quantidadeSemanal": 2,
+    "carater": "opcional",
+    "observacao": "Resolução 105/2024, Art. 6º: 2 ATPC semanais adicionais, cumpridas na unidade escolar, somadas à carga horária total do PEB I."
+  },
+
+  "valorDaAula": {
+    "modoDeUso": "input_manual_por_caso",
+    "observacao": "Decisão da usuária: o app não trava um valor fixo — cada caso exige o valor real da aula daquele professor, digitado a partir do holerite/tabela de vencimento vigente na data do caso (pode ser maior que o mínimo legal, dependendo da Faixa/Nível dele).",
+    "valorMinimoLegal": {
+      "formula": "pisoMensal da Jornada Integral (LC836) ou Ampliada (LC1374), ambas 40h semanais, dividido por 200",
+      "pisoMensalUsado": 5130.63,
+      "divisor": 200,
+      "valorCalculado": 25.65,
+      "fonte": "Decreto nº 70.483/2026, Artigo 1º, §1º ('valor mínimo da aula será de 1/200 sobre o valor do piso fixado para a Jornada Integral e Jornada Ampliada')",
+      "comoUsar": "Sugestão de valor pré-preenchido no formulário (a usuária pode sobrescrever), NUNCA usado silenciosamente sem confirmação — é um MÍNIMO legal, o valor real do professor específico pode ser maior."
+    }
+  },
+
+  "cargaSuplementar": {
+    "definicao": "Aulas com alunos atribuídas ACIMA da quantidade prevista pela jornada base do docente.",
+    "exemploConfirmadoPelaUsuaria": "Jornada Inicial = 19 aulas com alunos/semana. Se atribuídas 20 aulas, 1 aula fica como carga suplementar.",
+    "formulaMensal": "aulasExcedentesPorSemana × valorDaAula × multiplicadorMensal",
+    "multiplicadorMensal": 5,
+    "multiplicadorMensal_observacao": "Confirmado pela usuária como fixo (não varia com o nº real de semanas do mês). Consistente com a coluna 'cargaHorariaMensal' = 'cargaHorariaSemanal' × 5 da tabelaAnexoII_SE72_2019.",
+    "proporcionalidadeQuandoParcial": "Mesma regra de 'regrasDeCalculoProporcional' abaixo: calcula o valor mensal cheio da carga suplementar e rateia pelos dias corridos em que ela vigorou no mês."
+  },
+
+  "regrasDeCalculoProporcional": {
+    "baseProporcionalidade": "dias_corridos_reais",
+    "baseProporcionalidade_explicacao": "Usa o número real de dias do mês de referência (28, 29, 30 ou 31). Valor diário = valor mensal da rubrica na jornada ÷ nº real de dias do mês.",
+    "diaDaMudancaContaComo": "jornada_nova",
+    "diaDaMudanca_explicacao": "ASSUMIDO por padrão (a confirmar com a usuária). Se a data de início da jornada nova é 15/03, o dia 15 já entra na contagem da jornada nova (dias 1–14 = jornada antiga, dias 15–31 = jornada nova).",
+    "arredondamento": {
+      "casasDecimais": 2,
+      "observacao": "Arredondamento só na exibição final; os cálculos intermediários usam valor cheio para não acumular erro de centavos."
+    }
+  },
+
+  "escopoForaDoMVP": {
+    "afastamentos": "Não coberto. O app deve avisar na tela que afastamentos/licenças não são considerados no cálculo.",
+    "licencas": "Não coberto.",
+    "faltasNaoAbonadas": "Não coberto.",
+    "substituicoes": "Não coberto.",
+    "pagamentosRetroativos": "Não coberto.",
+    "observacao": "Esses casos exigem regras de desconto/compensação ainda não confirmadas com a usuária. Quando houver esses casos no mês, o app deve recomendar conferência manual com o RH/Diretoria de Ensino em vez de tentar calcular."
+  },
+
+  "rubricasDoContracheque": {
+    "observacao": "Nomes exatos de rubrica ainda não fornecidos. O app aceita nome livre + valor digitado pela usuária para cada rubrica, sem depender de lista fixa. Se a usuária fornecer os nomes oficiais, entram aqui como sugestão/autocomplete, sem travar a entrada.",
+    "listaSugerida": []
+  }
+}
