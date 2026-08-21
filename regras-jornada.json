@@ -25,6 +25,13 @@
       "documento": "Decreto nº 70.483, de 25 de março de 2026",
       "trata": "Nomeia oficialmente as jornadas (Reduzida, Inicial, Básica, Integral — LC 836/1997; Completa, Ampliada — LC 1.374/2022), fixa o valor de piso mensal de cada uma e define a fórmula do valor mínimo da aula (Artigo 1º, §1º).",
       "vigencia": "Efeitos retroativos a 01/01/2026 (Artigo 5º)."
+    },
+    {
+      "id": "resolucao_seduc_3_2026",
+      "documento": "Resolução SEDUC nº 3, de 13 de janeiro de 2026",
+      "publicacao": "Diário Oficial do Estado de São Paulo, Caderno Executivo, Seção Atos Normativos, edição de 13/01/2026",
+      "trata": "Processo de atribuição de classes e aulas. CONFIRMA OFICIALMENTE (Artigo 5º, incisos VIII a XIII) a quantidade de aulas de cada jornada nomeada — os mesmos números que já estavam em 'jornadasNomeadas' abaixo, antes derivados por cruzamento de tabelas, agora com fonte direta. Também traz (Artigos 9º e 10) a regra de QUANDO uma mudança de jornada se efetiva para fins de pagamento — ver 'regrasDeEfetivacaoDeMudancaDeJornada' abaixo.",
+      "revoga": ["Resolução SEDUC nº 95/2024"]
     }
   ],
 
@@ -42,7 +49,7 @@
 
   "_comentarioNomenclatura": "IMPORTANTE: 'cargaHorariaSemanal' nas tabelas abaixo é a designação legal/nominal da jornada (o número que aparece nos atos oficiais e no Decreto 70.483/2026), NÃO é a soma literal de aulas+ATPC+ATPL em horas de relógio. Não tente 'corrigir' esse número pela soma das aulas — ele é assim mesmo nas fontes oficiais.",
 
-  "_comentarioJornadasNomeadas": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. 'cargaHorariaSemanal' é a designação legal nominal. 'aulasComAlunosBase' é o nº de aulas com alunos dessa jornada — EU (Claude) derivei esse número cruzando as tabelas tabelaJornadasAnexoI e tabelaAnexoII_SE72_2019 pela 'cargaHorariaSemanal' de cada jornada nomeada; bateu nas duas fontes pra Reduzida/Inicial/Básica/Integral. Vale conferir se parecer estranho. IMPORTANTE: 'jornadasNomeadas' abaixo deve conter APENAS as jornadas de verdade (nenhuma chave de comentário/observação dentro dele) — o código lê Object.keys(jornadasNomeadas) diretamente para montar a lista de opções na tela.",
+  "_comentarioJornadasNomeadas": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. 'cargaHorariaSemanal' é a designação legal nominal. 'aulasComAlunosBase' é o nº de aulas com alunos dessa jornada — CONFIRMADO pela Resolução SEDUC nº 3/2026, Artigo 5º, incisos VIII a XIII (fonte oficial direta; antes disso eu, Claude, tinha só derivado esse número cruzando outras tabelas, e bateu certinho com a fonte oficial). IMPORTANTE: 'jornadasNomeadas' abaixo deve conter APENAS as jornadas de verdade (nenhuma chave de comentário/observação dentro dele) — o código lê Object.keys(jornadasNomeadas) diretamente para montar a lista de opções na tela.",
   "jornadasNomeadas": {
     "Reduzida":  { "lei": "LC 836/1997",   "cargaHorariaSemanal": 12, "aulasComAlunosBase": 9,  "pisoMensal": 1539.19 },
     "Inicial":   { "lei": "LC 836/1997",   "cargaHorariaSemanal": 24, "aulasComAlunosBase": 19, "pisoMensal": 3078.38 },
@@ -214,9 +221,36 @@
     }
   },
 
+  "regrasDeEfetivacaoDeMudancaDeJornada": {
+    "_observacao": "Adicionado a pedido da usuária: quando uma mudança de jornada NÃO se efetiva na data nominal do ato/pedido, por causa de afastamento/licença. Fonte: Resolução SEDUC nº 3/2026, Artigos 9º e 10.",
+    "reducaoDeJornada": {
+      "regraGeral": "Efetiva-se a partir da data da ocorrência (data do pedido, da atribuição menor, ou da perda de aula/classe), mesmo que o docente não esteja em exercício — inclusive se estiver em gozo de férias regulamentares (Art. 10, caput).",
+      "excecaoParaFinsDePagamento": {
+        "condicao": "Se, na data em que a redução ocorreria, o docente estiver em uma das licenças listadas abaixo, a jornada ANTERIOR (a maior, de antes da redução) é mantida — só para fins de PAGAMENTO — durante toda a licença.",
+        "licencasQueSeAplicam": [
+          "Licença para tratamento de saúde",
+          "Auxílio-doença",
+          "Licença à funcionária/servidora gestante",
+          "Licença-adoção",
+          "Licença-paternidade",
+          "Licença por acidente de trabalho"
+        ],
+        "quandoAReducaoPassaAValerParaPagamento": "A partir da data de retorno da licença (Art. 10, parágrafo único).",
+        "observacao": "A redução pode já estar registrada administrativamente/no sistema desde a data da ocorrência — essa ressalva vale só para o valor pago durante a licença, não para o registro funcional."
+      }
+    },
+    "aumentoOuAmpliacaoDeJornada": {
+      "regraGeral": "Só se concretiza 'para todos os fins e efeitos' na efetiva assunção do exercício, comprovada por assinatura do livro-ponto ou registro sistêmico equivalente (Art. 9º) — não basta a data nominal do ato/portaria.",
+      "observacao": "Regra DIFERENTE da redução: aqui o que importa é o comparecimento efetivo, não uma lista de licenças específica. Se aparecer esse cenário, perguntar à usuária a data de efetivo exercício em vez de presumir que é a mesma data da portaria/ato."
+    },
+    "cargaEmSubstituicao_relacionadoNaoModeladoAinda": {
+      "observacao": "Art. 8º, §1º: docente com aulas/classes EM SUBSTITUIÇÃO que se afasta ou licencia por qualquer motivo (inclusive auxílio-doença) deixa de contar com essa carga horária, aplicando-se o Art. 10 para fins de pagamento. Esse caso específico (substituição, diferente de jornada própria/carga suplementar comum) ainda não foi confirmado/modelado no app — se aparecer, perguntar à usuária antes de calcular, não presumir."
+    }
+  },
+
   "escopoForaDoMVP": {
-    "afastamentos": "Não coberto. O app deve avisar na tela que afastamentos/licenças não são considerados no cálculo.",
-    "licencas": "Não coberto.",
+    "afastamentos": "PARCIALMENTE coberto a partir de agora: o efeito de uma licença sobre QUANDO uma mudança de jornada passa a valer para pagamento está em 'regrasDeEfetivacaoDeMudancaDeJornada'. Descontos de falta/licença sobre o valor da rubrica em si (ex.: quanto desconta por dia de licença não remunerada) continuam não cobertos.",
+    "licencas": "Ver 'regrasDeEfetivacaoDeMudancaDeJornada' — cobre o efeito sobre a data de efetivação de mudança de jornada. Outros efeitos de licença (desconto, etc.) não cobertos.",
     "faltasNaoAbonadas": "Não coberto.",
     "substituicoes": "Não coberto.",
     "pagamentosRetroativos": "Não coberto.",
