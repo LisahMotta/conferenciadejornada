@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conferência de Jornada — SEDUC-SP</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>" />
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+
+  <header class="cabecalho">
+    <h1>Conferência de Jornada Docente</h1>
+    <p class="subtitulo">Rede estadual de SP (SEDUC-SP)</p>
+  </header>
+
+  <main id="app">
+
+    <!-- ===================== 1. INTRODUÇÃO ===================== -->
+    <section data-passo="intro" class="passo">
+      <h2>O que este app faz</h2>
+      <p>
+        Ajuda a conferir se um(a) professor(a) recebeu corretamente na folha
+        de pagamento em um mês com <strong>mudança de jornada de trabalho</strong>
+        (aumento, redução ou carga suplementar), calculando o valor
+        proporcional esperado e mostrando a memória de cálculo completa.
+      </p>
+      <p class="aviso">
+        ⚠️ <strong>Ferramenta de apoio.</strong> Não substitui a conferência
+        oficial do RH/Diretoria de Ensino. Não cobre afastamentos, licenças,
+        faltas, substituições ou pagamentos retroativos — nesses casos,
+        procure o RH.
+      </p>
+      <p>
+        Todo o cálculo acontece no seu navegador. Nenhum dado é enviado para
+        servidor nenhum.
+      </p>
+      <div class="acoes">
+        <button type="button" data-acao="iniciar-novo">Começar uma conferência nova</button>
+        <label class="botao-arquivo">
+          Carregar caso salvo (.json)
+          <input type="file" id="input-carregar-caso" accept="application/json" hidden />
+        </label>
+      </div>
+    </section>
+
+    <!-- ===================== 2. MÊS DE REFERÊNCIA ===================== -->
+    <section data-passo="mes" class="passo" hidden>
+      <h2>1. Mês de referência</h2>
+      <p>Qual mês do contracheque você está conferindo?</p>
+      <label>
+        Mês e ano
+        <input type="month" id="campo-mes-referencia" required />
+      </label>
+      <div class="acoes">
+        <button type="button" data-acao="voltar">Voltar</button>
+        <button type="button" data-acao="avancar-mes">Continuar</button>
+      </div>
+    </section>
+
+    <!-- ===================== 3. JORNADAS DO MÊS ===================== -->
+    <section data-passo="jornadas" class="passo" hidden>
+      <h2>2. Jornada(s) de trabalho no mês</h2>
+      <p>
+        Comece com a jornada vigente no <strong>início</strong> do mês. Se
+        houve mudança, adicione quantas forem necessárias — a data de fim de
+        cada período é calculada automaticamente (um dia antes da mudança
+        seguinte), então não precisa se preocupar em bater as pontas.
+      </p>
+
+      <div id="lista-periodos"></div>
+
+      <button type="button" data-acao="adicionar-periodo" class="botao-secundario">
+        + Adicionar mudança de jornada
+      </button>
+
+      <p id="erro-jornadas" class="erro" hidden></p>
+
+      <div class="acoes">
+        <button type="button" data-acao="voltar">Voltar</button>
+        <button type="button" data-acao="avancar-jornadas">Continuar</button>
+      </div>
+    </section>
+
+    <!-- ===================== 4. VALOR DA HORA-AULA ===================== -->
+    <section data-passo="valor-aula" class="passo" hidden>
+      <h2>3. Valor da hora-aula</h2>
+      <p>
+        Digite o valor da hora-aula <strong>desse professor específico</strong>,
+        lido do holerite ou da tabela de vencimento vigente na data do caso.
+        Já deixei pré-preenchido o mínimo legal — pode ser que o valor real
+        seja maior, dependendo da faixa/nível dele.
+      </p>
+      <label>
+        Valor da hora-aula (R$)
+        <input type="number" id="campo-valor-hora-aula" step="0.01" min="0" required />
+      </label>
+      <p class="ajuda" id="ajuda-valor-minimo"></p>
+      <div class="acoes">
+        <button type="button" data-acao="voltar">Voltar</button>
+        <button type="button" data-acao="avancar-valor-aula">Continuar</button>
+      </div>
+    </section>
+
+    <!-- ===================== 5. RUBRICAS DO CONTRACHEQUE ===================== -->
+    <section data-passo="rubricas" class="passo" hidden>
+      <h2>4. Valores informados no contracheque</h2>
+      <p>
+        Digite exatamente como está escrito no holerite: o nome da rubrica e
+        o valor pago. Some quantas rubricas forem relevantes para essa
+        jornada (ex.: "Vencimento", "Carga Suplementar" etc.).
+      </p>
+
+      <div id="lista-rubricas"></div>
+
+      <button type="button" data-acao="adicionar-rubrica" class="botao-secundario">
+        + Adicionar rubrica
+      </button>
+
+      <p id="erro-calculo" class="erro" hidden></p>
+
+      <div class="acoes">
+        <button type="button" data-acao="voltar">Voltar</button>
+        <button type="button" data-acao="calcular">Calcular</button>
+      </div>
+    </section>
+
+    <!-- ===================== 6. RESULTADO ===================== -->
+    <section data-passo="resultado" class="passo" hidden>
+      <h2>Resultado</h2>
+
+      <div id="resumo-diagnostico" class="diagnostico"></div>
+
+      <h3>Memória de cálculo</h3>
+      <div id="memoria-calculo"></div>
+
+      <h3>Valores informados no contracheque</h3>
+      <div id="resumo-rubricas"></div>
+
+      <p class="aviso">
+        ⚠️ Este resultado é uma estimativa de apoio. Não cobre afastamentos,
+        licenças, faltas, substituições ou pagamentos retroativos. Confirme
+        sempre com o RH/Diretoria de Ensino antes de qualquer requerimento.
+      </p>
+
+      <div class="acoes no-print">
+        <button type="button" data-acao="voltar-inicio">Nova conferência</button>
+        <button type="button" data-acao="salvar-caso">Salvar caso (.json)</button>
+        <button type="button" data-acao="imprimir">Imprimir / Exportar PDF</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape no-print">
+    <p>Ferramenta interna de apoio administrativo — não é um sistema oficial da SEDUC-SP.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -42,8 +42,8 @@
 
   "_comentarioNomenclatura": "IMPORTANTE: 'cargaHorariaSemanal' nas tabelas abaixo é a designação legal/nominal da jornada (o número que aparece nos atos oficiais e no Decreto 70.483/2026), NÃO é a soma literal de aulas+ATPC+ATPL em horas de relógio. Não tente 'corrigir' esse número pela soma das aulas — ele é assim mesmo nas fontes oficiais.",
 
+  "_comentarioJornadasNomeadas": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. 'cargaHorariaSemanal' é a designação legal nominal. 'aulasComAlunosBase' é o nº de aulas com alunos dessa jornada — EU (Claude) derivei esse número cruzando as tabelas tabelaJornadasAnexoI e tabelaAnexoII_SE72_2019 pela 'cargaHorariaSemanal' de cada jornada nomeada; bateu nas duas fontes pra Reduzida/Inicial/Básica/Integral. Vale conferir se parecer estranho. IMPORTANTE: 'jornadasNomeadas' abaixo deve conter APENAS as jornadas de verdade (nenhuma chave de comentário/observação dentro dele) — o código lê Object.keys(jornadasNomeadas) diretamente para montar a lista de opções na tela.",
   "jornadasNomeadas": {
-    "_observacao": "Nomes oficiais do Decreto 70.483/2026, Artigo 1º, com o valor de piso mensal de cada uma. 'cargaHorariaSemanal' é a designação legal nominal. 'aulasComAlunosBase' é o nº de aulas com alunos dessa jornada — EU (Claude) derivei esse número cruzando as tabelas tabelaJornadasAnexoI e tabelaAnexoII_SE72_2019 pela 'cargaHorariaSemanal' de cada jornada nomeada; bateu nas duas fontes pra Reduzida/Inicial/Básica/Integral. Vale conferir se parecer estranho.",
     "Reduzida":  { "lei": "LC 836/1997",   "cargaHorariaSemanal": 12, "aulasComAlunosBase": 9,  "pisoMensal": 1539.19 },
     "Inicial":   { "lei": "LC 836/1997",   "cargaHorariaSemanal": 24, "aulasComAlunosBase": 19, "pisoMensal": 3078.38 },
     "Básica":    { "lei": "LC 836/1997",   "cargaHorariaSemanal": 30, "aulasComAlunosBase": 24, "pisoMensal": 3847.97 },

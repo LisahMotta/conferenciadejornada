@@ -45,6 +45,23 @@ export function diasNoMes(ano, mes) {
   return new Date(ano, mes, 0).getDate();
 }
 
+/** Devolve a data ISO ("AAAA-MM-DD") do dia imediatamente anterior. */
+export function diaAnterior(dataISO) {
+  const data = new Date(`${dataISO}T00:00:00`);
+  data.setDate(data.getDate() - 1);
+  return data.toISOString().slice(0, 10);
+}
+
+/** Data ISO ("AAAA-MM-DD") do primeiro dia de um mês de referência. */
+export function primeiroDiaDoMes(ano, mes) {
+  return `${ano}-${String(mes).padStart(2, "0")}-01`;
+}
+
+/** Data ISO ("AAAA-MM-DD") do último dia de um mês de referência. */
+export function ultimoDiaDoMes(ano, mes) {
+  return `${ano}-${String(mes).padStart(2, "0")}-${String(diasNoMes(ano, mes)).padStart(2, "0")}`;
+}
+
 /**
  * Valor mensal CHEIO da jornada BASE, sem considerar proporcionalidade
  * nem carga suplementar.

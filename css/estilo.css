@@ -1,0 +1,262 @@
+/* estilo.css
+   Estilo simples e funcional — prioriza legibilidade sobre design
+   sofisticado, já que é uma ferramenta de uso repetido no dia a dia. */
+
+:root {
+  --cor-texto: #1f2933;
+  --cor-fundo: #f7f8fa;
+  --cor-caixa: #ffffff;
+  --cor-borda: #d3d9df;
+  --cor-primaria: #1d4ed8;
+  --cor-primaria-hover: #1e40af;
+  --cor-verde-fundo: #e6f6ec;
+  --cor-verde-texto: #146c2e;
+  --cor-vermelho-fundo: #fdecec;
+  --cor-vermelho-texto: #a3241b;
+  --cor-amarelo-fundo: #fff6dd;
+  --cor-amarelo-texto: #8a6100;
+  --espaco: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  line-height: 1.5;
+}
+
+.cabecalho {
+  background: var(--cor-primaria);
+  color: white;
+  padding: 1.25rem var(--espaco);
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.subtitulo {
+  margin: 0.15rem 0 0;
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+#app {
+  max-width: 720px;
+  margin: 1.5rem auto;
+  padding: 0 var(--espaco) 3rem;
+}
+
+.passo {
+  background: var(--cor-caixa);
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.passo h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin: 0.75rem 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="month"],
+select {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: normal;
+  font-family: inherit;
+}
+
+.ajuda {
+  font-size: 0.85rem;
+  color: #52606d;
+  margin-top: 0.25rem;
+}
+
+.aviso {
+  background: var(--cor-amarelo-fundo);
+  color: var(--cor-amarelo-texto);
+  border: 1px solid #f1d68c;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.erro {
+  background: var(--cor-vermelho-fundo);
+  color: var(--cor-vermelho-texto);
+  border: 1px solid #f3b7b1;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.acoes {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+button,
+.botao-arquivo {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--cor-primaria);
+  color: white;
+}
+
+button:hover,
+.botao-arquivo:hover {
+  background: var(--cor-primaria-hover);
+}
+
+button[data-acao="voltar"],
+.botao-secundario {
+  background: transparent;
+  color: var(--cor-primaria);
+  border: 1px solid var(--cor-primaria);
+}
+
+button[data-acao="voltar"]:hover,
+.botao-secundario:hover {
+  background: #eaf0fd;
+}
+
+.botao-arquivo {
+  display: inline-block;
+}
+
+.cartao-periodo,
+.cartao-rubrica {
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  position: relative;
+  background: #fbfcfe;
+}
+
+.cartao-periodo .remover,
+.cartao-rubrica .remover {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: transparent;
+  color: var(--cor-vermelho-texto);
+  border: none;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.linha-dupla {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.linha-dupla > * {
+  flex: 1;
+}
+
+/* ---------- Resultado ---------- */
+
+.diagnostico {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.diagnostico.ok {
+  background: var(--cor-verde-fundo);
+  color: var(--cor-verde-texto);
+}
+
+.diagnostico.a-menor {
+  background: var(--cor-vermelho-fundo);
+  color: var(--cor-vermelho-texto);
+}
+
+.diagnostico.a-maior {
+  background: var(--cor-amarelo-fundo);
+  color: var(--cor-amarelo-texto);
+}
+
+.diagnostico .valores {
+  font-weight: 400;
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+table.tabela-memoria {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1.5rem;
+  font-size: 0.9rem;
+}
+
+table.tabela-memoria caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+table.tabela-memoria th,
+table.tabela-memoria td {
+  border: 1px solid var(--cor-borda);
+  padding: 0.4rem 0.55rem;
+  text-align: left;
+}
+
+table.tabela-memoria th {
+  background: #eef1f5;
+}
+
+.rodape {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #7b8794;
+  padding: 1rem;
+}
+
+/* ---------- Impressão ---------- */
+@media print {
+  .cabecalho,
+  .rodape,
+  .no-print {
+    display: none !important;
+  }
+  .passo {
+    border: none;
+    padding: 0;
+  }
+  #app {
+    max-width: none;
+    margin: 0;
+  }
+}
