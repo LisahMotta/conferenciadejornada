@@ -1,0 +1,19 @@
+Biblioteca: pdfjs-dist (pdf.js), da Mozilla
+Versão: 4.10.38
+Site: https://mozilla.github.io/pdf.js/
+Licença: Apache-2.0
+
+Arquivos aqui dentro (baixados do pacote npm "pdfjs-dist", build de navegador
+— não passam por nenhum processo de build nosso, são usados como estão):
+  - pdf.min.mjs         → biblioteca principal (módulo ES)
+  - pdf.worker.min.mjs  → processamento do PDF roda num Web Worker separado,
+                          pra não travar a tela enquanto lê o arquivo
+
+Por que vendorizado (copiado pra dentro do projeto) em vez de carregado de
+um CDN: assim o app continua funcionando 100% offline/self-contained, sem
+depender de nenhum serviço externo no ar. Nenhum dado do PDF sai do
+navegador — a leitura acontece inteiramente no computador de quem usa o app.
+
+Pra atualizar a versão: baixar de novo com
+  npm install pdfjs-dist@<versão>
+e copiar build/pdf.min.mjs e build/pdf.worker.min.mjs pra cá.

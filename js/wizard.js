@@ -64,6 +64,35 @@ export function criarCartaoPeriodo({
   return cartao;
 }
 
+/**
+ * Monta o cartão de UMA rubrica candidata, extraída de um PDF de
+ * holerite — com uma caixinha de marcar, porque a decisão de incluir ou
+ * não continua sendo da usuária (ver leitor-holerite.js e app.js).
+ */
+export function criarCartaoCandidata({ candidata, indice }) {
+  const cartao = document.createElement("label");
+  cartao.className = "cartao-candidata";
+  cartao.dataset.indice = String(indice);
+
+  const ehProvento = candidata.valor >= 0;
+  const classeValor = ehProvento ? "valor-provento" : "valor-desconto";
+  const valorFormatado = candidata.valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  cartao.innerHTML = `
+    <input type="checkbox" class="campo-candidata-marcada" />
+    <span>
+      <strong>${candidata.codigo}</strong> — ${candidata.nome}
+      <span class="${classeValor}"> ${valorFormatado}</span><br />
+      <span class="detalhe">${candidata.periodo}${candidata.quantidade ? ` · ${candidata.quantidade} ${candidata.unidade}` : ""}</span>
+    </span>
+  `;
+
+  return cartao;
+}
+
 /** Monta o cartão de UMA rubrica do contracheque (nome livre + valor). */
 export function criarCartaoRubrica({ rubrica, indice }) {
   const cartao = document.createElement("div");

@@ -117,6 +117,32 @@
         + Adicionar rubrica
       </button>
 
+      <div class="caixa-holerite">
+        <h3>Ou carregar de um PDF de holerite</h3>
+        <p class="ajuda">
+          Lê a tabela de rubricas do PDF (baixado direto do sistema da
+          folha) e mostra tudo que encontrar pra você escolher — nada é
+          somado automaticamente. O PDF nunca sai do seu navegador.
+        </p>
+        <label class="botao-arquivo">
+          Escolher PDF do holerite
+          <input type="file" id="input-holerite-pdf" accept="application/pdf" hidden />
+        </label>
+        <p id="status-holerite" class="ajuda" hidden></p>
+
+        <div id="lista-candidatas-holerite" hidden>
+          <p class="ajuda">
+            Marque só as rubricas relacionadas à jornada (ex.: Vencimento,
+            Carga Suplementar). As demais — impostos, descontos,
+            empréstimos etc. — não entram nessa conferência.
+          </p>
+          <div id="itens-candidatas-holerite"></div>
+          <button type="button" data-acao="adicionar-candidatas-selecionadas" class="botao-secundario">
+            Adicionar selecionadas às rubricas
+          </button>
+        </div>
+      </div>
+
       <p id="erro-calculo" class="erro" hidden></p>
 
       <div class="acoes">

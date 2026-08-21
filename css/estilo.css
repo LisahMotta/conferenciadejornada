@@ -151,6 +151,50 @@ button[data-acao="voltar"]:hover,
   display: inline-block;
 }
 
+.caixa-holerite {
+  border: 1px dashed var(--cor-borda);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.25rem 0;
+  background: #fbfcfe;
+}
+
+.caixa-holerite h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.cartao-candidata {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  margin: 0.4rem 0;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.cartao-candidata input[type="checkbox"] {
+  margin-top: 0.2rem;
+}
+
+.cartao-candidata .valor-provento {
+  color: var(--cor-verde-texto);
+  font-weight: 600;
+}
+
+.cartao-candidata .valor-desconto {
+  color: var(--cor-vermelho-texto);
+  font-weight: 600;
+}
+
+.cartao-candidata .detalhe {
+  color: #52606d;
+  font-size: 0.8rem;
+}
+
 .cartao-periodo,
 .cartao-rubrica {
   border: 1px solid var(--cor-borda);

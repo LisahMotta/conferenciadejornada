@@ -14,7 +14,8 @@ import {
   primeiroDiaDoMes,
   ultimoDiaDoMes,
 } from "./calculo.js";
-import { criarCartaoPeriodo, criarCartaoRubrica } from "./wizard.js";
+import { criarCartaoPeriodo, criarCartaoRubrica, criarCartaoCandidata } from "./wizard.js";
+import { lerRubricasCandidatasDoPdf } from "./leitor-holerite.js";
 
 const estado = {
   regras: null,
@@ -22,6 +23,7 @@ const estado = {
   periodos: [],
   valorHoraAula: null,
   rubricas: [],
+  candidatasHolerite: [],
   resultado: null,
 };
 
@@ -155,6 +157,43 @@ document.querySelector('[data-acao="adicionar-rubrica"]').addEventListener("clic
   estado.rubricas.push({ nome: "", valor: null });
   renderRubricas();
 });
+
+// ------------------------- Leitura de holerite em PDF -------------------------
+
+function renderCandidatasHolerite() {
+  const container = document.getElementById("itens-candidatas-holerite");
+  container.innerHTML = "";
+  estado.candidatasHolerite.forEach((candidata, indice) => {
+    container.appendChild(criarCartaoCandidata({ candidata, indice }));
+  });
+  document.getElementById("lista-candidatas-holerite").hidden = estado.candidatasHolerite.length === 0;
+}
+
+async function processarHoleritePdf(arquivo) {
+  const status = document.getElementById("status-holerite");
+  status.hidden = false;
+  status.textContent = "Lendo o PDF...";
+
+  try {
+    const candidatas = await lerRubricasCandidatasDoPdf(arquivo);
+    if (candidatas.length === 0) {
+      status.textContent =
+        "Não encontrei uma tabela de rubricas nesse PDF. Confira se é o demonstrativo de pagamento completo (não só um recorte), ou digite as rubricas manualmente acima.";
+      return;
+    }
+    estado.candidatasHolerite = candidatas;
+    status.textContent = `${candidatas.length} rubrica(s) encontrada(s) no PDF. Marque abaixo as que valem pra essa conferência.`;
+    renderCandidatasHolerite();
+  } catch (erro) {
+    status.textContent = `Não consegui ler esse PDF (${erro.message}). Ele pode ser uma imagem escaneada em vez de PDF com texto — nesse caso, digite as rubricas manualmente acima.`;
+  }
+}
+
+document.getElementById("input-holerite-pdf").addEventListener("change", (evento) => {
+  const arquivo = evento.target.files[0];
+  if (arquivo) processarHoleritePdf(arquivo);
+});
+
 
 // ------------------------- Montagem do caso p/ cálculo -------------------------
 
@@ -328,8 +367,12 @@ document.addEventListener("click", (evento) => {
       estado.periodos = [];
       estado.valorHoraAula = null;
       estado.rubricas = [];
+      estado.candidatasHolerite = [];
       estado.resultado = null;
       document.getElementById("campo-mes-referencia").value = "";
+      document.getElementById("status-holerite").hidden = true;
+      document.getElementById("lista-candidatas-holerite").hidden = true;
+      document.getElementById("input-holerite-pdf").value = "";
       mostrarPasso("mes");
       break;
 
@@ -385,6 +428,21 @@ document.addEventListener("click", (evento) => {
       if (estado.rubricas.length === 0) estado.rubricas.push({ nome: "", valor: null });
       renderRubricas();
       mostrarPasso("rubricas");
+      break;
+    }
+
+    case "adicionar-candidatas-selecionadas": {
+      const marcadas = document.querySelectorAll(".cartao-candidata .campo-candidata-marcada:checked");
+      marcadas.forEach((checkbox) => {
+        const indice = Number(checkbox.closest(".cartao-candidata").dataset.indice);
+        const candidata = estado.candidatasHolerite[indice];
+        estado.rubricas.push({ nome: `${candidata.codigo} ${candidata.nome}`, valor: candidata.valor });
+      });
+      if (marcadas.length === 0) {
+        alert("Marque ao menos uma rubrica antes de adicionar.");
+        return;
+      }
+      renderRubricas();
       break;
     }
 
